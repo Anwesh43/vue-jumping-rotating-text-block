@@ -45,6 +45,7 @@ Vue.component('jumping-text-block', {
             const width = `${size}px`
             const height = `${size}px`
             const background = '#3F51B5'
+            const textAlign = 'center'
             const WebkitTransform = `rotate(${180 * this.sf}deg)`
             const style = {
                 position,
@@ -53,7 +54,8 @@ Vue.component('jumping-text-block', {
                 width,
                 height,
                 background,
-                WebkitTransform
+                WebkitTransform,
+                textAlign
             }
         }
     },
@@ -67,4 +69,8 @@ Vue.component('jumping-text-block', {
     },
 
     template : '<div :style = "objStyle"><slot></slot></div>'
+})
+
+const vueInstance = new Vue({
+    el : '#app',
 })
