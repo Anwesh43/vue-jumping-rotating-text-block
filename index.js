@@ -1,5 +1,8 @@
 const scGap = 0.02
 const delay = 30
+const w = window.innerWidth
+const h = window.innerHeight
+
 class StateAnimator {
 
     animated = false
@@ -21,3 +24,47 @@ class StateAnimator {
         }
     }
 }
+
+Vue.component('jumping-text-block', {
+
+    data() {
+        const stateAnimator = new StateAnimator()
+        const sf = 0
+        return {
+            stateAnimator,
+            sf
+        }
+    },
+
+    computed: {
+        objStyle() {
+            const size = Math.min(w, h) / 6
+            const position = 'absolute'
+            const left = `${w / 2}px`
+            const top = `${h / 2 - (h / 3) * this.sf}px`
+            const width = `${size}px`
+            const height = `${size}px`
+            const background = '#3F51B5'
+            const WebkitTransform = `rotate(${180 * this.sf}deg)`
+            const style = {
+                position,
+                left,
+                top,
+                width,
+                height,
+                background,
+                WebkitTransform
+            }
+        }
+    },
+
+    methods: {
+        start() {
+            stateAnimator.start((sf) => {
+                this.sf = sf
+            })
+        }
+    },
+
+    template : '<div :style = "objStyle"><slot></slot></div>'
+})
